@@ -10,7 +10,7 @@ namespace TheHotelApp.Services
     {
         Task<IEnumerable<TEntity>> GetAllItemsAsync();
 
-        Task<TEntity> GetItemByIdAsync(int id);
+        Task<TEntity> GetItemByIdAsync(Guid? id);
 
         Task<IEnumerable<TEntity>> SearchFor(Expression<Func<TEntity, bool>> expression);
 

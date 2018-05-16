@@ -13132,11 +13132,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jcool\\Documents\\Visual Studio 2017\\Projects\\TheHotelApp\\TheHotelApplication\\TheHotelApp\\TheHotelApp.csproj",
+      "projectUniqueName": "C:\\Users\\Jcool\\Source\\Repos\\TheHotelApplication\\TheHotelApp\\TheHotelApp.csproj",
       "projectName": "TheHotelApp",
-      "projectPath": "C:\\Users\\Jcool\\Documents\\Visual Studio 2017\\Projects\\TheHotelApp\\TheHotelApplication\\TheHotelApp\\TheHotelApp.csproj",
+      "projectPath": "C:\\Users\\Jcool\\Source\\Repos\\TheHotelApplication\\TheHotelApp\\TheHotelApp.csproj",
       "packagesPath": "C:\\Users\\Jcool\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jcool\\Documents\\Visual Studio 2017\\Projects\\TheHotelApp\\TheHotelApplication\\TheHotelApp\\obj\\",
+      "outputPath": "C:\\Users\\Jcool\\Source\\Repos\\TheHotelApplication\\TheHotelApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

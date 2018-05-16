@@ -26,8 +26,13 @@ namespace TheHotelApp.Services
             return await DbSet.ToArrayAsync();
         }
 
-        public async Task<TEntity> GetItemByIdAsync(int id)
+        public async Task<TEntity> GetItemByIdAsync(Guid? id)
         {
+            if (id == null)
+            {
+                return null;
+            }
+
             return await DbSet.FindAsync(id);
         }
 

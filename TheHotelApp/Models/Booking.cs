@@ -16,7 +16,8 @@ namespace HotelManagementSystem.Models
         public decimal TotalFee { get; set; }
         public bool Paid { get; set; }
         public bool Completed { get; set; }
-        public string UserId { get; set; }
+        public Guid ApplicationUserId { get; set; }
+        [ForeignKey(nameof(ApplicationId))]
         public virtual ApplicationUser User { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }

@@ -22,3 +22,15 @@ C:\Users\Jcool\Documents\Visual Studio 2017\Projects\TheHotelApp\TheHotelApplica
 C:\Users\Jcool\Documents\Visual Studio 2017\Projects\TheHotelApp\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.AssemblyInfo.cs
 C:\Users\Jcool\Documents\Visual Studio 2017\Projects\TheHotelApp\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.dll
 C:\Users\Jcool\Documents\Visual Studio 2017\Projects\TheHotelApp\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.pdb
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\bin\Debug\netcoreapp2.0\TheHotelApp.deps.json
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\bin\Debug\netcoreapp2.0\TheHotelApp.runtimeconfig.json
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\bin\Debug\netcoreapp2.0\TheHotelApp.runtimeconfig.dev.json
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\bin\Debug\netcoreapp2.0\TheHotelApp.dll
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\bin\Debug\netcoreapp2.0\TheHotelApp.pdb
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.csprojResolveAssemblyReference.cache
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.csproj.CoreCompileInputs.cache
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.AssemblyInfoInputs.cache
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.AssemblyInfo.cs
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.dll
+C:\Users\Jcool\Source\Repos\TheHotelApplication\TheHotelApp\obj\Debug\netcoreapp2.0\TheHotelApp.pdb
