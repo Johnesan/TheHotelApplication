@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelManagementSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TheHotelApp.Data;
+using TheHotelApp.ViewModels;
 
 namespace TheHotelApp.Services
 {
@@ -59,5 +61,32 @@ namespace TheHotelApp.Services
             DbSet.Remove(entity);
             await _context.SaveChangesAsync();
         }
+
+
+
+        //This section contains methods particular to specific controllers
+        #region Specific Controller Methods
+
+
+        public RoomsAdminIndexViewModel GetAllRoomsAndRoomTypes()
+        {
+
+            var rooms = _context.Rooms.ToList();
+            var roomtypes = _context.RoomTypes.ToList();
+
+            var RoomsAdminIndeViewModel = new RoomsAdminIndexViewModel
+            {
+                Rooms = rooms,
+                RoomTypes = roomtypes
+            };
+            return RoomsAdminIndeViewModel;
+        }
+        public async Task<IEnumerable<RoomType>> GetAllRoomTypesAsync()
+        {
+            return await _context.RoomTypes.ToArrayAsync();
+        }
+        
+        #endregion
+
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TheHotelApp.Data;
 using TheHotelApp.Models;
 using TheHotelApp.Services;
+using HotelManagementSystem.Models;
 
 namespace TheHotelApp
 {
