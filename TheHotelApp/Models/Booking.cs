@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using TheHotelApp.Models;
 
-namespace HotelManagementSystem.Models
+namespace TheHotelApp.Models
 {
     public class Booking
     {
-        public Guid ID { get; set; }
-        public Guid RoomID { get; set; }
+        public string ID { get; set; }
+        public string RoomID { get; set; }
         public virtual Room Room { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime CheckIn { get; set; }
@@ -16,8 +16,8 @@ namespace HotelManagementSystem.Models
         public decimal TotalFee { get; set; }
         public bool Paid { get; set; }
         public bool Completed { get; set; }
-        public Guid ApplicationUserId { get; set; }
-        [ForeignKey(nameof(ApplicationId))]
+        public string ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationId")]
         public virtual ApplicationUser User { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }

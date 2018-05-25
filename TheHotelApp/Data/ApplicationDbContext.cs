@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HotelManagementSystem.Models;
+using TheHotelApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TheHotelApp.Models;
@@ -23,6 +23,7 @@ namespace TheHotelApp.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<RoomFeature> RoomFeatureRelationships { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -31,6 +32,17 @@ namespace TheHotelApp.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<RoomFeature>()
+                .HasKey(x => new { x.RoomID, x.FeatureID });
+
+            builder.Entity<RoomFeature>()
+                .HasOne(rf => rf.Room)
+                .WithMany(r => r.Features);
+
+            builder.Entity<RoomFeature>()
+                .HasOne(f => f.Feature)
+                .WithMany(r => r.Rooms);           
         }
     }
 }
