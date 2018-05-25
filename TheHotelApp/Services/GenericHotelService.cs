@@ -1,4 +1,4 @@
-﻿using HotelManagementSystem.Models;
+﻿using TheHotelApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace TheHotelApp.Services
             return await DbSet.ToArrayAsync();
         }
 
-        public async Task<TEntity> GetItemByIdAsync(Guid? id)
+        public async Task<TEntity> GetItemByIdAsync(string id)
         {
             if (id == null)
             {
@@ -81,11 +81,74 @@ namespace TheHotelApp.Services
             };
             return RoomsAdminIndeViewModel;
         }
+
         public async Task<IEnumerable<RoomType>> GetAllRoomTypesAsync()
         {
             return await _context.RoomTypes.ToArrayAsync();
         }
+
         
+
+        public void UpdateRoomFeaturesList(Room room, string[] SelectedFeatureIDs)
+        {
+            var PreviouslySelectedFeatures = _context.RoomFeatureRelationships.Where(x => x.RoomID == room.ID);
+            _context.RoomFeatureRelationships.RemoveRange(PreviouslySelectedFeatures);
+            _context.SaveChanges();
+            
+
+            if (SelectedFeatureIDs != null)
+            {
+                foreach (var featureID in SelectedFeatureIDs)
+                {
+                    var AllFeatureIDs = new HashSet<string>(_context.Features.Select(x => x.ID));
+                    if (AllFeatureIDs.Contains(featureID))
+                    {
+                        _context.RoomFeatureRelationships.Add(new RoomFeature
+                        {
+                            FeatureID = featureID,
+                            RoomID = room.ID
+                        });
+                    }
+                }
+                _context.SaveChanges();
+            }
+        }
+
+        public List<SelectedRoomFeatureViewModel> PopulateSelectedFeaturesForRoom(Room room)
+        {
+            var viewModel = new List<SelectedRoomFeatureViewModel>();
+            var allFeatures = _context.Features;
+            if (room.ID == "" || room.ID == null)
+            {
+                foreach(var feature in allFeatures)
+                {
+                    viewModel.Add(new SelectedRoomFeatureViewModel
+                    {
+                        FeatureID = feature.ID,
+                        Feature = feature,
+                        Selected = false
+                    });
+                }
+            }
+            else
+            {
+                var roomFeatures = _context.RoomFeatureRelationships.Where(x => x.RoomID == room.ID);
+                var roomFeatureIDs = new HashSet<string>(roomFeatures.Select(x => x.FeatureID));
+
+                
+                foreach (var feature in allFeatures)
+                {
+                    viewModel.Add(new SelectedRoomFeatureViewModel
+                    {
+                        FeatureID = feature.ID,
+                        Feature = feature,
+                        Selected = roomFeatureIDs.Contains(feature.ID)
+                    });
+                }
+            }
+
+            return viewModel;
+        }
         #endregion
 
     }

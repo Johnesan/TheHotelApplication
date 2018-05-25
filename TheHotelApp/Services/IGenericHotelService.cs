@@ -1,10 +1,11 @@
-﻿using HotelManagementSystem.Models;
+﻿using TheHotelApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TheHotelApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace TheHotelApp.Services
 {
@@ -12,7 +13,7 @@ namespace TheHotelApp.Services
     {
         Task<IEnumerable<TEntity>> GetAllItemsAsync();
 
-        Task<TEntity> GetItemByIdAsync(Guid? id);
+        Task<TEntity> GetItemByIdAsync(string id);
 
         Task<IEnumerable<TEntity>> SearchFor(Expression<Func<TEntity, bool>> expression);
 
@@ -28,7 +29,12 @@ namespace TheHotelApp.Services
        
         RoomsAdminIndexViewModel GetAllRoomsAndRoomTypes();
 
-        Task<IEnumerable<RoomType>> GetAllRoomTypesAsync();      
+        Task<IEnumerable<RoomType>> GetAllRoomTypesAsync();
+
+        List<SelectedRoomFeatureViewModel> PopulateSelectedFeaturesForRoom(Room room);
+
+        void UpdateRoomFeaturesList(Room room, string[] SelectedFeatureIDs);
+
 
 
         #endregion

@@ -1,4 +1,4 @@
-﻿@model HotelManagementSystem.Models.Room
+﻿@model TheHotelApp.Models.Room
 
 @{
     ViewData["Title"] = "Details";
@@ -48,6 +48,12 @@
         </dd>
     </dl>
 </div>
+<h4>Features</h4>
+@foreach(var feature in Model.Features)
+{
+    <p>@feature.FeatureID</p>
+
+}
 <div>@Html.DisplayFor(model => model.Features)</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
