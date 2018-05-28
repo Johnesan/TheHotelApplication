@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TheHotelApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace TheHotelApp.Services
 {
@@ -34,6 +35,10 @@ namespace TheHotelApp.Services
         List<SelectedRoomFeatureViewModel> PopulateSelectedFeaturesForRoom(Room room);
 
         void UpdateRoomFeaturesList(Room room, string[] SelectedFeatureIDs);
+
+        Task<AddImagesViewModel> AddImagesAsync(List<IFormFile> files);
+
+        Task RemoveImageAsync(Image image);
 
 
 

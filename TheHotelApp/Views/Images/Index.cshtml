@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TheHotelApp.Models.Image>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 panel">
+            <div style="background-color:lightgrey; margin:2px;">
+                <img class="img-responsive" src="@item.ImageUrl" asp-append-version="true" alt="@item.Name" width="400" />
+                <div class="panel-group" style="padding:5px;">
+                    <p>@item.Name</p>
+                    <p class="small">@item.Size</p>
+                </div>
+                <div class="panel-footer" style="width:100%;">
+                    <a href="#">View</a> |
+                    <a asp-action="Delete" data-room-id="@item.ID" data-room-name="@item.Name" data-toggle="modal" data-target="#DeleteModal">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+<!-- DeleteModal -->
+<div class="modal fade" id="DeleteModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Image?</h4>
+            </div>
+            <div class="modal-body">
+                <p id="DeleteConfirmation"></p>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="" />
+                    <input type="submit" value="Delete" class="btn btn-success" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- DeleteModal -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#DeleteModal').on('show.bs.modal', function (e) {
+
+                //get data-id attribute of the clicked element
+                var roomID = $(e.relatedTarget).data('room-id');
+                var roomName = $(e.relatedTarget).data('room-name');
+                var deleteMessage = "Are you sure you want to delete " + roomName + "?";
+                $('#DeleteConfirmation').html(deleteMessage);
+                $(e.currentTarget).find('input[name="id"]').val(roomID);
+            });
+        });
+    </script>
+}
