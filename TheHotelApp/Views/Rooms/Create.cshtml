@@ -48,11 +48,37 @@
                 <label asp-for="Features" class="control-label"></label>
                 @foreach (var roomFeature in ViewBag.Features as IEnumerable<SelectedRoomFeatureViewModel>)
                 {
-                <p>
-                    <input type="checkbox" name="SelectedFeatureIDs" value="@roomFeature.FeatureID" @Html.Raw(roomFeature.Selected ? "checked=\"checked\"" : "") />@roomFeature.Feature.Name
-                </p>
+                    <p>
+                        <input type="checkbox" name="SelectedFeatureIDs" value="@roomFeature.FeatureID" @Html.Raw(roomFeature.Selected ? "checked=\"checked\"" : "") />@roomFeature.Feature.Name
+                    </p>
                 }
             </div>
+            <div class="form-group">
+                <h3>Room Images</h3>
+
+                <a data-toggle="modal" data-target="#AddImagesModal" class="btn btn-success">Add Images</a>
+                <br/>
+                &nbsp;
+                <div id="images">
+                    @if (ViewBag.Images != null)
+                    {
+                        foreach (var image in ViewBag.Images as IEnumerable<Image>)
+                        {
+                            <div class="panel" style="background-color:lightgrey; margin:2px;">
+                                <img class="img-responsive" src="@image.ImageUrl" asp-append-version="true" alt="@image.Name" width="200" />
+                                <div class="panel-group" style="padding:5px;">
+                                    <input type="hidden" name="imageIDs" value="@image.ID" />
+                                </div>
+                                <div class="panel-footer" style="width:100%;">
+                                    <a href="#">View</a> |
+                                    <a data-image-id="@image.ID" data-image-name="@image.Name" data-toggle="modal" data-target="#DeleteModal">Remove <i class="glyphicon-trash"></i></a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -60,10 +86,85 @@
     </div>
 </div>
 
+<div class="modal fade" id="AddImagesModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Room Images</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <form>
+                    <p id="AddImages" class="btn btn-success">Add Images</p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script>
+        $(document).ready(function () {
+            $('#AddImagesModal').on('show.bs.modal', function (e) {
+                $('#loading').show();
+                $.ajax({
+                    url: "/Images/GetAllImagesJson",
+                    type: "GET",
+                    cache: true
+                }).success(function (result) {
+                    $('.modal-body').prepend(result);
+                    $('#loading').hide();
+                });
+
+            }); //AddImagesModal -- Show Modal
+
+            $('.modal-body').on('click', '.imageItem', function () {
+                var checkbox = $(this).children('input');
+                if (checkbox.attr('checked') == undefined && checkbox.attr('checked') == null) {
+                    $(this).attr("style", "background-color: blue");
+                    $(this).children('input').attr('checked', 'checked');
+                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            }); //imageItem Clicked
+
+
+            $('.modal-body').on("custom", ":checked", function () {
+
+                var checkedImageDiv = $(this).parent();
+                console.log($(this).val());
+                console.log(checkedImageDiv.children('img').attr('src'));
+                var newImageDiv = '<div class="col-md-6 panel">' +
+                    '<input type="hidden" name="imageIDs" value="' + $(this).val() + '"/>' +
+                    ' <img class="img-responsive" width="400" src="' + checkedImageDiv.children('img').attr('src') + '" />' +
+                    '<a class="remove">Remove</a>'
+                '</div>';
+
+                $('#images').prepend(newImageDiv);
+            }); //$("modal body(:checked) custom handler")
+
+            $('#AddImages').click(function () {
+                $(':checked').trigger("custom");
+                $('#AddImagesModal .close').click();
+            }); //AddImages Clicked
+
+            $('#images').on("click", ".remove", function () {
+                $(this).parent().remove();
+            });
+        }); //jquery
+    </script>
 }
+

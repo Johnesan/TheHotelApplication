@@ -28,6 +28,13 @@ namespace TheHotelApp.Controllers
             return View(await _hotelService.GetAllItemsAsync());
         }
 
+        // GET: Images
+        public async Task<IActionResult> GetAllImagesJson()
+        {
+            var images = await _hotelService.GetAllItemsAsync();            
+            return PartialView("GetAllImagesPartial", images);
+        }
+
         // GET: Images/Details/5
         public async Task<IActionResult> Details(string id)
         {
