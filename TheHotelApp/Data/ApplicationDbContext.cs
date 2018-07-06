@@ -24,6 +24,7 @@ namespace TheHotelApp.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<RoomFeature> RoomFeatureRelationships { get; set; }
+        public DbSet<ItemImage> ItemImageRelationships { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -42,7 +43,10 @@ namespace TheHotelApp.Data
 
             builder.Entity<RoomFeature>()
                 .HasOne(f => f.Feature)
-                .WithMany(r => r.Rooms);           
+                .WithMany(r => r.Rooms);
+
+            builder.Entity<ItemImage>()
+                .HasKey(x => new { x.ItemID, x.ImageID });
         }
     }
 }

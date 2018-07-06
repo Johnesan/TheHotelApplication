@@ -6,8 +6,6 @@ using TheHotelApp.Models;
 
 namespace TheHotelApp.Models
 {
-   
-
     public class Room
     {
         public string ID { get; set; }

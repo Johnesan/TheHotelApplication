@@ -21,13 +21,11 @@
                 </div>
                 <div class="panel-footer" style="width:100%;">
                     <a href="#">View</a> |
-                    <a asp-action="Delete" data-room-id="@item.ID" data-room-name="@item.Name" data-toggle="modal" data-target="#DeleteModal">Delete</a>
+                    <a asp-action="Delete" data-image-id="@item.ID" data-image-name="@item.Name" data-toggle="modal" data-target="#DeleteModal">Delete</a>
                 </div>
             </div>
         </div>
     }
-
-
 </div>
 <!-- DeleteModal -->
 <div class="modal fade" id="DeleteModal" role="dialog">
@@ -60,11 +58,11 @@
             $('#DeleteModal').on('show.bs.modal', function (e) {
 
                 //get data-id attribute of the clicked element
-                var roomID = $(e.relatedTarget).data('room-id');
-                var roomName = $(e.relatedTarget).data('room-name');
-                var deleteMessage = "Are you sure you want to delete " + roomName + "?";
+                var imageID = $(e.relatedTarget).data('image-id');
+                var imageName = $(e.relatedTarget).data('image-name');
+                var deleteMessage = "Are you sure you want to delete " + imageName + "?";
                 $('#DeleteConfirmation').html(deleteMessage);
-                $(e.currentTarget).find('input[name="id"]').val(roomID);
+                $(e.currentTarget).find('input[name="id"]').val(imageID);
             });
         });
     </script>

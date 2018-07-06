@@ -49,12 +49,19 @@
     </dl>
 </div>
 <h4>Features</h4>
-@foreach(var feature in Model.Features)
+@foreach (var feature in ViewBag.Features as IEnumerable<Feature>)
 {
-    <p>@feature.FeatureID</p>
-
+    <p>@feature.Name</p>
+    <p>@feature.Icon</p>
 }
-<div>@Html.DisplayFor(model => model.Features)</div>
+
+<h4>Images</h4>
+@foreach (var image in ViewBag.Images as IEnumerable<Image>)
+{
+    <img src="@image.ImageUrl" asp-append-version="true" alt="@image.Name"/>
+}
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>

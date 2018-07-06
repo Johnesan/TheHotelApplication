@@ -11,8 +11,8 @@ using TheHotelApp.Data;
 namespace TheHotelApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513165615_InitialTables")]
-    partial class InitialTables
+    [Migration("20180524193354_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,146 +20,6 @@ namespace TheHotelApp.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("HotelManagementSystem.Models.Booking", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CheckIn");
-
-                    b.Property<DateTime>("CheckOut");
-
-                    b.Property<bool>("Completed");
-
-                    b.Property<string>("CustomerAddress");
-
-                    b.Property<string>("CustomerCity");
-
-                    b.Property<string>("CustomerEmail");
-
-                    b.Property<string>("CustomerName");
-
-                    b.Property<string>("CustomerPhone");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Guests");
-
-                    b.Property<string>("OtherRequests");
-
-                    b.Property<bool>("Paid");
-
-                    b.Property<Guid>("RoomID");
-
-                    b.Property<decimal>("TotalFee");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("HotelManagementSystem.Models.Feature", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Icon");
-
-                    b.Property<string>("Name");
-
-                    b.Property<Guid?>("RoomID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomID");
-
-                    b.ToTable("Features");
-                });
-
-            modelBuilder.Entity("HotelManagementSystem.Models.Image", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<Guid?>("RoomID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomID");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("HotelManagementSystem.Models.Review", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("ReviewerEmail");
-
-                    b.Property<string>("ReviewerName");
-
-                    b.Property<Guid>("RoomID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomID");
-
-                    b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("HotelManagementSystem.Models.Room", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Available");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("MaximumGuests");
-
-                    b.Property<int>("Number");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<Guid>("RoomTypeID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomTypeID");
-
-                    b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("HotelManagementSystem.Models.RoomType", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("BasePrice");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("RoomTypes");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -324,46 +184,155 @@ namespace TheHotelApp.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Models.Booking", b =>
+            modelBuilder.Entity("TheHotelApp.Models.Booking", b =>
                 {
-                    b.HasOne("HotelManagementSystem.Models.Room", "Room")
-                        .WithMany("Bookings")
-                        .HasForeignKey("RoomID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
 
-                    b.HasOne("TheHotelApp.Models.ApplicationUser", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId");
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("CheckIn");
+
+                    b.Property<DateTime>("CheckOut");
+
+                    b.Property<bool>("Completed");
+
+                    b.Property<string>("CustomerAddress");
+
+                    b.Property<string>("CustomerCity");
+
+                    b.Property<string>("CustomerEmail");
+
+                    b.Property<string>("CustomerName");
+
+                    b.Property<string>("CustomerPhone");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<int>("Guests");
+
+                    b.Property<string>("OtherRequests");
+
+                    b.Property<bool>("Paid");
+
+                    b.Property<string>("RoomID");
+
+                    b.Property<decimal>("TotalFee");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("RoomID");
+
+                    b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Models.Feature", b =>
+            modelBuilder.Entity("TheHotelApp.Models.Feature", b =>
                 {
-                    b.HasOne("HotelManagementSystem.Models.Room")
-                        .WithMany("Features")
-                        .HasForeignKey("RoomID");
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Icon");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Models.Image", b =>
+            modelBuilder.Entity("TheHotelApp.Models.Image", b =>
                 {
-                    b.HasOne("HotelManagementSystem.Models.Room")
-                        .WithMany("RoomImages")
-                        .HasForeignKey("RoomID");
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("RoomID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RoomID");
+
+                    b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Models.Review", b =>
+            modelBuilder.Entity("TheHotelApp.Models.Review", b =>
                 {
-                    b.HasOne("HotelManagementSystem.Models.Room", "Room")
-                        .WithMany("Reviews")
-                        .HasForeignKey("RoomID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ReviewerEmail");
+
+                    b.Property<string>("ReviewerName");
+
+                    b.Property<string>("RoomID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RoomID");
+
+                    b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Models.Room", b =>
+            modelBuilder.Entity("TheHotelApp.Models.Room", b =>
                 {
-                    b.HasOne("HotelManagementSystem.Models.RoomType", "RoomType")
-                        .WithMany()
-                        .HasForeignKey("RoomTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Available");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("MaximumGuests");
+
+                    b.Property<int>("Number");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("RoomTypeID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RoomTypeID");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.RoomFeature", b =>
+                {
+                    b.Property<string>("RoomID");
+
+                    b.Property<string>("FeatureID");
+
+                    b.HasKey("RoomID", "FeatureID");
+
+                    b.HasIndex("FeatureID");
+
+                    b.ToTable("RoomFeatureRelationships");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.RoomType", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("BasePrice");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RoomTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -408,6 +377,51 @@ namespace TheHotelApp.Data.Migrations
                     b.HasOne("TheHotelApp.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.Booking", b =>
+                {
+                    b.HasOne("TheHotelApp.Models.ApplicationUser", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("TheHotelApp.Models.Room", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomID");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.Image", b =>
+                {
+                    b.HasOne("TheHotelApp.Models.Room")
+                        .WithMany("RoomImages")
+                        .HasForeignKey("RoomID");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.Review", b =>
+                {
+                    b.HasOne("TheHotelApp.Models.Room", "Room")
+                        .WithMany("Reviews")
+                        .HasForeignKey("RoomID");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.Room", b =>
+                {
+                    b.HasOne("TheHotelApp.Models.RoomType", "RoomType")
+                        .WithMany()
+                        .HasForeignKey("RoomTypeID");
+                });
+
+            modelBuilder.Entity("TheHotelApp.Models.RoomFeature", b =>
+                {
+                    b.HasOne("TheHotelApp.Models.Feature", "Feature")
+                        .WithMany("Rooms")
+                        .HasForeignKey("FeatureID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TheHotelApp.Models.Room", "Room")
+                        .WithMany("Features")
+                        .HasForeignKey("RoomID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

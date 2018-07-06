@@ -15,7 +15,7 @@ namespace TheHotelApp.Controllers
     public class RoomsController : Controller
     {
         private readonly IGenericHotelService<Room> _hotelService;
-
+        
         public RoomsController(IGenericHotelService<Room> genericHotelService)
         {
             _hotelService = genericHotelService;
@@ -36,14 +36,16 @@ namespace TheHotelApp.Controllers
             }
 
             var room = await _hotelService.GetItemByIdAsync(id);
-            var hbv = room.Features;
-            
+                      
 
             if (room == null)
             {
                 return NotFound();
             }
 
+            var ImagesAndFeatures = await _hotelService.GetRoomFeaturesAndImagesAsync(room);
+            ViewData["Features"] = ImagesAndFeatures.Features;
+            ViewData["Images"] = ImagesAndFeatures.Images;
             return View(room);
         }
 
@@ -65,22 +67,23 @@ namespace TheHotelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Number,RoomTypeID,Price,Available,Description,MaximumGuests")] Room room, string[] SelectedFeatureIDs)
-        {
-            
+        public async Task<IActionResult> Create([Bind("Number,RoomTypeID,Price,Available,Description,MaximumGuests")] Room room, string[] SelectedFeatureIDs, string[] imageIDs)
+        {            
             if (ModelState.IsValid)
             {
-                room.ID = Guid.NewGuid().ToString();                
+                room.ID = Guid.NewGuid().ToString();             
                 await _hotelService.CreateItemAsync(room);
-                _hotelService.UpdateRoomFeaturesList(room, SelectedFeatureIDs);                
+                _hotelService.UpdateRoomFeaturesList(room, SelectedFeatureIDs);
+                _hotelService.UpdateRoomImagesList(room, imageIDs);
                 return RedirectToAction(nameof(Index));
             }
-            _hotelService.PopulateSelectedFeaturesForRoom(room);
+            ViewData["Features"] = _hotelService.PopulateSelectedFeaturesForRoom(room);
+            var ImagesAndFeatures = await _hotelService.GetRoomFeaturesAndImagesAsync(room);
+            ViewData["Images"] = ImagesAndFeatures.Images;
             return View(room);
         }
 
-
-
+        
         // GET: Rooms/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
@@ -97,8 +100,9 @@ namespace TheHotelApp.Controllers
             var RoomTypes = _hotelService.GetAllRoomTypesAsync().Result;
             ViewData["RoomTypeID"] = new SelectList(RoomTypes, "ID", "Name", room.RoomType.ID);
 
-
             ViewData["Features"] = _hotelService.PopulateSelectedFeaturesForRoom(room);
+            var ImagesAndFeatures = await _hotelService.GetRoomFeaturesAndImagesAsync(room);
+            ViewData["Images"] = ImagesAndFeatures.Images;
             return View(room);
         }
 
@@ -107,7 +111,7 @@ namespace TheHotelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ID,Number,RoomTypeID,Price,Available,Description,MaximumGuests")] Room room, string[] SelectedFeatureIDs)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,Number,RoomTypeID,Price,Available,Description,MaximumGuests")] Room room, string[] SelectedFeatureIDs, string[] imageIDs)
         {
             if (id != room.ID)
             {
@@ -121,6 +125,7 @@ namespace TheHotelApp.Controllers
                 {
                     await _hotelService.EditItemAsync(room);
                     _hotelService.UpdateRoomFeaturesList(room, SelectedFeatureIDs);
+                    _hotelService.UpdateRoomImagesList(room, imageIDs);
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -138,7 +143,9 @@ namespace TheHotelApp.Controllers
             }
             var RoomTypes = _hotelService.GetAllRoomTypesAsync().Result;
             ViewData["RoomTypeID"] = new SelectList(RoomTypes, "ID", "ID", room.RoomTypeID);
-            _hotelService.PopulateSelectedFeaturesForRoom(room);
+            ViewData["Features"] = _hotelService.PopulateSelectedFeaturesForRoom(room);
+            var ImagesAndFeatures = await _hotelService.GetRoomFeaturesAndImagesAsync(room);
+            ViewData["Images"] = ImagesAndFeatures.Images;
             return View(room);
         }
 

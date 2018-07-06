@@ -40,7 +40,9 @@ namespace TheHotelApp.Services
 
         Task RemoveImageAsync(Image image);
 
+        Task<RoomFeaturesAndImagesViewModel> GetRoomFeaturesAndImagesAsync(Room room);
 
+        void UpdateRoomImagesList(Room room, string[] imageIDs);
 
         #endregion
 
