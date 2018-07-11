@@ -1,41 +1,152 @@
 ﻿@model IEnumerable<TheHotelApp.Models.Feature>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
-<h2>Index</h2>
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Room Features</h1>
+    <ol class="breadcrumb">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Icon)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+        <li class="active">View All</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <a asp-action="create" class="btn btn-option3 btn-lg">Create New Feature</a>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <!-- Start Row -->
+    <div class="row">
+        <!-- Start Panel -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    Room Features List
+                </div>
+                <div class="panel-body table-responsive">
+                    <table id="example0" class="table-bordered display">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>                      
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        <img src="@item.Icon" class="img-responsive" width="60" asp-append-version="true"/>
+                                    </td>
+                                   
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.ID">View</a> |
+                                        <a asp-action="Delete" data-feature-id="@item.ID" data-feature-name="@item.Name" data-toggle="modal" data-target="#DeleteModal">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Panel -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- END CONTAINER -->
+<!-- DeleteModal -->
+<div class="modal fade" id="DeleteModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Room?</h4>
+            </div>
+            <div class="modal-body">
+                <p id="DeleteConfirmation"></p>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="" />
+                    <input type="submit" value="Delete" class="btn btn-success" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- DeleteModal -->
+
+
+
+@section Scripts{
+    <!-- ================================================
+    Data Tables
+    ================================================ -->
+    <script src="~/js/datatables/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example0').DataTable();
+        });</script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                "columnDefs": [
+                    { "visible": false, "targets": 2 }
+                ],
+                "order": [[2, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(2, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group"><td colspan="5">' + group + '</td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                }
+            });
+
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function () {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                }
+                else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+        });
+
+        $('#DeleteModal').on('show.bs.modal', function (e) {
+
+            //get data-id attribute of the clicked element
+            var featureID = $(e.relatedTarget).data('feature-id');
+            var feature_name = $(e.relatedTarget).data('feature-name');
+            var deleteMessage = "Are you sure you want to delete this feature: " + feature_name + "?" ;
+            $('#DeleteConfirmation').html(deleteMessage);
+            $(e.currentTarget).find('input[name="id"]').val(featureID);
+        });</script>
+
 }
-    </tbody>
-</table>

@@ -1,0 +1,111 @@
+﻿@model TheHotelApp.Models.Booking
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckIn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CheckIn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckOut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CheckOut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Guests)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Guests)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalFee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalFee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Completed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherRequests)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherRequests)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Room.ID)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -91,7 +91,28 @@ namespace TheHotelApp.Services
         {
             return await _context.RoomTypes.ToArrayAsync();
         }
-        
+
+        public IEnumerable<Room> GetAllRooms()
+        {
+            return  _context.Rooms.Include(x => x.RoomType);
+        }
+
+        public IEnumerable<Booking> GetAllBookings()
+        {
+            return _context.Bookings.Include(x => x.Room).Include(x => x.Room.RoomType);
+        }
+
+        public IEnumerable<Room> GetAllRoomsWithFeature(string featureID)
+        {
+           var RoomFeatures = _context.RoomFeatureRelationships.Include(x => x.Room).Include(x => x.Room.RoomType).Where(x => x.FeatureID == featureID);
+            var SelectedRooms = new List<Room>();
+            foreach(var roomFeature in RoomFeatures)
+            {
+               SelectedRooms.Add(roomFeature.Room);
+            }
+            return SelectedRooms;
+        }
+
         public void UpdateRoomFeaturesList(Room room, string[] SelectedFeatureIDs)
         {
             var PreviouslySelectedFeatures = _context.RoomFeatureRelationships.Where(x => x.RoomID == room.ID);

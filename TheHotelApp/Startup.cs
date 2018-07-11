@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using TheHotelApp.Data;
 using TheHotelApp.Models;
 using TheHotelApp.Services;
-using HotelManagementSystem.Models;
 
 namespace TheHotelApp
 {
@@ -28,7 +27,7 @@ namespace TheHotelApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("HotelDb")));
+                options.UseSqlServer(Configuration.GetConnectionString("Meridian")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

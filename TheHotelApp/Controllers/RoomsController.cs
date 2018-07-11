@@ -9,9 +9,11 @@ using TheHotelApp.Models;
 using TheHotelApp.Data;
 using TheHotelApp.Services;
 using TheHotelApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheHotelApp.Controllers
 {
+    [Authorize]
     public class RoomsController : Controller
     {
         private readonly IGenericHotelService<Room> _hotelService;
@@ -35,7 +37,7 @@ namespace TheHotelApp.Controllers
                 return NotFound();
             }
 
-            var room = await _hotelService.GetItemByIdAsync(id);
+            var room =  _hotelService.GetAllRooms().SingleOrDefault(x => x.ID == id);
                       
 
             if (room == null)

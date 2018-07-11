@@ -1,86 +1,165 @@
-﻿@model TheHotelApp.Models.Room
-@using TheHotelApp.ViewModels;
+﻿
+
+@model TheHotelApp.Models.Room
+@using TheHotelApp.ViewModels
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
 
-<h4>Room</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+
+
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Rooms</h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Index">Rooms</a></li>
+        <li class="active">Create</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <a asp-action="index" class="btn btn-option3 btn-lg">Back to List</a>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <div class="row">
+        <form asp-action="Create" class="form-horizontal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoomTypeID" class="control-label">Room Category</label>
-                <select asp-for="RoomTypeID" class="form-control" asp-items="ViewBag.RoomTypeID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Available" /> @Html.DisplayNameFor(model => model.Available)
-                    </label>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Edit Basic Data
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label asp-for="Number" class="col-sm-2 control-label form-label"></label>
+                            <input asp-for="Number" class="col-sm-9" />
+                            <span asp-validation-for="Number" class="text-danger col-sm-9"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RoomTypeID" class="col-sm-2 control-label form-label">Room Category</label>
+                            <select asp-for="RoomTypeID" class="col-sm-9" asp-items="ViewBag.RoomTypeID"></select>
+                            <span asp-validation-for="RoomTypeID" class="text-danger col-sm-9"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="col-sm-2 control-label form-label"></label>
+                            <input asp-for="Price" class="col-sm-9" />
+                            <span asp-validation-for="Price" class="text-danger col-sm-9"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Available" class="col-sm-2 control-label form-label"></label>
+                            <input asp-for="Available" class="col-sm-1 checkbox" />
+                            <span asp-validation-for="Available" class="text-danger col-sm-9"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="col-sm-2 control-label form-label"></label>
+                            <textarea asp-for="Description" class="col-sm-9" style="border-radius: 3px; padding-left: 10px; font-size: 14px; background: #fff; border: 1px solid #BDC4C9; box-shadow: inset 0px 1px 0px #F1F0F1;"></textarea>
+                            <span asp-validation-for="Description" class="text-danger col-sm-9"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MaximumGuests" class="col-sm-2 control-label form-label"></label>
+                            <input asp-for="MaximumGuests" class="col-sm-9" />
+                            <span asp-validation-for="MaximumGuests" class="text-danger col-sm-9"></span>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Room Features
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label asp-for="Features" class="control-label"></label>
+                            @foreach (var roomFeature in ViewBag.Features as IEnumerable<SelectedRoomFeatureViewModel>)
+                    {
+                        <p>
+                            <input type="checkbox" name="SelectedFeatureIDs" value="@roomFeature.FeatureID" @Html.Raw(roomFeature.Selected ? "checked" : "") /><img src="@roomFeature.Feature.Icon" width="50" style="margin-left: 4px;"/> @roomFeature.Feature.Name
+
+                        </p>
+            }
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="MaximumGuests" class="control-label"></label>
-                <input asp-for="MaximumGuests" class="form-control" />
-                <span asp-validation-for="MaximumGuests" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Features" class="control-label"></label>
-                @foreach (var roomFeature in ViewBag.Features as IEnumerable<SelectedRoomFeatureViewModel>)
-                {
-                    <p>
-                        <input type="checkbox" name="SelectedFeatureIDs" value="@roomFeature.FeatureID" @Html.Raw(roomFeature.Selected ? "checked" : "") />@roomFeature.Feature.Name
-                    </p>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Room Images
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <a data-toggle="modal" data-target="#AddImagesModal" class="btn btn-default">Add Images</a>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+
+
+                            <br />
+                            &nbsp;
+                            <div id="images">
+                                @if (ViewBag.Images != null)
+                        {
+                            foreach (var image in ViewBag.Images as IEnumerable<Image>)
+                            {
+                                <div class="col-md-4">
+                                    <input name="imageIDs" value="@image.ID" type="hidden">
+                                    <img class="img-responsive" src="@image.ImageUrl" asp-append-version="true" alt="@image.Name" width="400">
+                                    <p class="text-center remove"><a>Remove</a></p>
+                                </div>
+                    }
                 }
-            </div>
-            <div class="form-group">
-                <h3>Room Images</h3>
-
-                <a data-toggle="modal" data-target="#AddImagesModal" class="btn btn-success">Add Images</a>
-                <br/>
-                &nbsp;
-                <div id="images" class="row">
-                    @if (ViewBag.Images != null)
-    {
-        foreach (var image in ViewBag.Images as IEnumerable<Image>)
-        {
-
-                <div class="col-md-6 panel">
-                    <input name="imageIDs" value="@image.ID" type="hidden">
-                    <img class="img-responsive" src="@image.ImageUrl" asp-append-version="true" alt="@image.Name" width="400">
-                    <a class="remove">Remove</a>
-                </div>
-}
-}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+            <div class="form-group col-md-12">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <input id="bottom-submit-button" type="submit" value="Create Room" class="btn btn-success" />
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="reset" class="btn btn-danger">Reset Fields</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-warning" onclick="window.location.href='/Rooms/Index'">Back To List</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
+<!-- END CONTAINER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
 
 <div class="modal fade" id="AddImagesModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -104,9 +183,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 
 @section Scripts {
@@ -115,16 +192,18 @@
 
     <script>
         $(document).ready(function () {
+            $.ajax({
+                url: "/Images/GetAllImagesJson",
+                type: "GET",
+                cache: true
+            }).success(function (result) {
+                $('.modal-body').prepend(result);
+            });
+
+
+
             $('#AddImagesModal').on('show.bs.modal', function (e) {
-                $('#loading').show();
-                $.ajax({
-                    url: "/Images/GetAllImagesJson",
-                    type: "GET",
-                    cache: true
-                }).success(function (result) {
-                    $('.modal-body').prepend(result);
-                    $('#loading').hide();
-                });
+
 
             }); //AddImagesModal -- Show Modal
 
@@ -134,7 +213,7 @@
                     $(this).attr("style", "background-color: blue");
                     $(this).children('input').attr('checked', 'checked');
                 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
             }); //imageItem Clicked
 
 
@@ -143,10 +222,10 @@
                 var checkedImageDiv = $(this).parent();
                 console.log($(this).val());
                 console.log(checkedImageDiv.children('img').attr('src'));
-                var newImageDiv = '<div class="col-md-6 panel">' +
+                var newImageDiv = '<div class="col-md-4">' +
                     '<input type="hidden" name="imageIDs" value="' + $(this).val() + '"/>' +
                     ' <img class="img-responsive" width="400" src="' + checkedImageDiv.children('img').attr('src') + '" />' +
-                    '<a class="remove">Remove</a>'
+                    '<p class="text-center remove"><a>Remove</a></p>'
                 '</div>';
 
                 $('#images').prepend(newImageDiv);
@@ -157,10 +236,17 @@
                 $('#AddImagesModal .close').click();
             }); //AddImages Clicked
 
+
+            $('#top-submit-button').click(function () {
+                $('#bottom-submit-button').click();
+            }); //AddImages Clicked
+
             $('#images').on("click", ".remove", function () {
                 $(this).parent().remove();
             });
+
         }); //jquery
     </script>
 }
+
 

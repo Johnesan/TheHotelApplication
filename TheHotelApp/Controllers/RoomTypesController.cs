@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HotelManagementSystem.Models;
+using TheHotelApp.Models;
 using TheHotelApp.Data;
 using TheHotelApp.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheHotelApp.Controllers
 {
+    [Authorize]
     public class RoomTypesController : Controller
     {
         private readonly IGenericHotelService<RoomType> _hotelService;
@@ -27,21 +29,23 @@ namespace TheHotelApp.Controllers
         }
 
         // GET: RoomTypes/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var roomType = await _hotelService.GetItemByIdAsync(id);
+            var roomType = await _hotelService.GetItemByIdAsync(id);            
+            
 
             if (roomType == null)
             {
                 return NotFound();
             }
 
-
+            var rooms = _hotelService.GetAllRooms().Where(x => x.RoomTypeID == id);
+            ViewData["CategoryRooms"] = rooms;
             return View(roomType);
         }
 
@@ -60,7 +64,7 @@ namespace TheHotelApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                roomType.ID = Guid.NewGuid();
+                roomType.ID = Guid.NewGuid().ToString();
                 await _hotelService.CreateItemAsync(roomType);
                 return RedirectToAction(nameof(Index));
             }
@@ -68,7 +72,7 @@ namespace TheHotelApp.Controllers
         }
 
         // GET: RoomTypes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -88,7 +92,7 @@ namespace TheHotelApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,BasePrice,Description,ImageUrl")] RoomType roomType)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,Name,BasePrice,Description,ImageUrl")] RoomType roomType)
         {
             if (id != roomType.ID)
             {
@@ -118,7 +122,7 @@ namespace TheHotelApp.Controllers
         }
 
         // GET: RoomTypes/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -137,7 +141,7 @@ namespace TheHotelApp.Controllers
         // POST: RoomTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var roomType = await _hotelService.GetItemByIdAsync(id);
             await _hotelService.DeleteItemAsync(roomType);

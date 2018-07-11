@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "65a0a2abc700ff2de01f961aceb1a3c1f3ed1b4f"
+    "signature": "a7dbe3ea9e721b27bcbcffa3b01202efa9ac9696"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
     ".NETCoreApp,Version=v2.0": {
       "TheHotelApp/1.0.0": {
         "dependencies": {
+          "ByteSize": "1.3.0",
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2",
           "Microsoft.NETCore.App": "2.0.0",
@@ -33,6 +34,20 @@
         },
         "compile": {
           "TheHotelApp.dll": {}
+        }
+      },
+      "ByteSize/1.3.0": {
+        "dependencies": {
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.0/ByteSize.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.0/ByteSize.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -4237,6 +4252,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "ByteSize/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v1iQg+wqNhnF0Ja1cDkXxYSlJR3Tm+fgU3oIegAlUjqhba6aeOvHpUSrFzw3GPpHZUfUpb2Vzl8fncbUkjbSzw==",
+      "path": "bytesize/1.3.0",
+      "hashPath": "bytesize.1.3.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

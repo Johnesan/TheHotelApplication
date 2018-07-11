@@ -147,6 +147,8 @@ namespace TheHotelApp.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FullName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -162,6 +164,8 @@ namespace TheHotelApp.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("ProfilePic");
 
                     b.Property<string>("SecurityStamp");
 
@@ -204,7 +208,8 @@ namespace TheHotelApp.Data.Migrations
 
                     b.Property<string>("CustomerEmail");
 
-                    b.Property<string>("CustomerName");
+                    b.Property<string>("CustomerName")
+                        .IsRequired();
 
                     b.Property<string>("CustomerPhone");
 
@@ -234,9 +239,11 @@ namespace TheHotelApp.Data.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Icon");
+                    b.Property<string>("Icon")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -305,7 +312,8 @@ namespace TheHotelApp.Data.Migrations
 
                     b.Property<bool>("Available");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<int>("MaximumGuests");
 
@@ -342,11 +350,11 @@ namespace TheHotelApp.Data.Migrations
 
                     b.Property<decimal>("BasePrice");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -435,7 +443,8 @@ namespace TheHotelApp.Data.Migrations
                 {
                     b.HasOne("TheHotelApp.Models.RoomType", "RoomType")
                         .WithMany("Rooms")
-                        .HasForeignKey("RoomTypeID");
+                        .HasForeignKey("RoomTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TheHotelApp.Models.RoomFeature", b =>

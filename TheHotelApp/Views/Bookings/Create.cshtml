@@ -1,0 +1,261 @@
+﻿@model TheHotelApp.Models.Booking
+@{
+    var room = ViewBag.Room as TheHotelApp.Models.Room;
+}
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Bookings</h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Index">Bookings</a></li>
+        <li class="active">Create</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <button id="top-submit-button" class="btn btn-option3 btn-lg">Save Changes</button>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <div class="row">
+        @if (ViewBag.Status != null)
+    {
+        <div class="kode-alert alert5">
+            <a href="#" class="closed">×</a>
+           @ViewBag.Status
+        </div>
+
+}
+        <form asp-action="Create" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="roomID" value="@room.ID" />
+            <div id="booking_details" class="col-md-12 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Booking Details
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <h5>Check-In Date</h5>
+                                <fieldset>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" id="" class="form-control date-picker" asp-for="CheckIn" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div> <!--Check In Date (col-md-5)-->
+
+                            <div class="col-md-6 ">
+                                <h5>Check-Out Date</h5>
+                                <fieldset>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" id="" class="form-control date-picker" asp-for="CheckOut" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>   <!--Check Out Date (col-md-5)-->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 ">
+                                <h5>No of Guests Expected:</h5>
+                                <fieldset>
+                                    <div class="control-group">
+                                        <input asp-for="Guests" class="col-md-10" min="0" max="@room.MaximumGuests" />
+                                        <span asp-validation-for="Guests" class="text-danger col-md-10"></span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div> <!--Guests (col-md-12)-->
+                        @*<div class="col-md-12"; style="margin-top: 20px;">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>*@  <!--Submit (col-md-12)-->
+                    </div>
+                </div>
+            </div>
+
+            <div id="room_details" class="col-md-12 col-lg-6">
+                <div class="row">
+                    <div class="panel panel-default col-md-12">
+                        <div class="panel-title">
+                            Room Details
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Room Number: </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.Number
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Room Type: </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.RoomType.Name
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Price ($): </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.Price
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Status: </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.Available
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Room Description: </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.Description
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p class="col-sm-4">
+                                        <b>Maximum Guests: </b>
+                                    </p>
+                                    <p class="col-sm-8">
+                                        @room.MaximumGuests
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="customer_details" class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Customer Details
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label asp-for="CustomerName" class="col-sm-2 control-label form-label">Name</label>
+                            <input asp-for="CustomerName" class="col-sm-9" />
+                            <span asp-validation-for="CustomerName" class="text-danger col-sm-9 col-sm-offset-2"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CustomerEmail" class="col-sm-2 control-label form-label">Email</label>
+                            <input asp-for="CustomerEmail" class="col-sm-9" />
+                            <span asp-validation-for="CustomerEmail" class="text-danger  col-sm-9 col-sm-offset-2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CustomerPhone" class="col-sm-2 control-label form-label">Phone Number</label>
+                            <input asp-for="CustomerPhone" class="col-sm-9" />
+                            <span asp-validation-for="CustomerPhone" class="text-danger  col-sm-9 col-sm-offset-2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CustomerCity" class="col-sm-2 control-label form-label">City</label>
+                            <input asp-for="CustomerCity" class="col-sm-9" />
+                            <span asp-validation-for="CustomerCity" class="text-danger  col-sm-9 col-sm-offset-2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CustomerAddress" class="col-sm-2 control-label form-label">Address</label>
+                            <input asp-for="CustomerAddress" class="col-sm-9" />
+                            <span asp-validation-for="CustomerAddress" class="text-danger  col-sm-9 col-sm-offset-2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OtherRequests" class="col-sm-2 control-label form-label">Special Requests?</label>
+                            <textarea asp-for="OtherRequests" rows="3" class="col-sm-9" style="border-radius: 3px; padding-left: 10px; font-size: 14px; background: #fff; border: 1px solid #BDC4C9; box-shadow: inset 0px 1px 0px #F1F0F1;"></textarea>
+                            <span asp-validation-for="OtherRequests" class="text-danger  col-sm-9 col-sm-offset-2"></span>
+                        </div>
+                        <div class="col-md-12" ; style="margin-top: 20px;">
+                            <div class="form-group ">
+                                <input type="submit" value="Create" class="btn btn-default center-block" />
+                            </div>
+                        </div>  <!--Submit (col-md-12)-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <!-- ================================================
+    Bootstrap Select
+    ================================================ -->
+    <script type="text/javascript" src="~/js/bootstrap-select/bootstrap-select.js"></script>
+    <!-- ================================================
+    Bootstrap Toggle
+    ================================================ -->
+    <script type="text/javascript" src="~/js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <!-- ================================================
+    Moment.js
+    ================================================ -->
+    <script type="text/javascript" src="~/js/moment/moment.min.js"></script>
+    <!-- ================================================
+    Bootstrap Date Range Picker
+    ================================================ -->
+    <script type="text/javascript" src="~/js/date-range-picker/daterangepicker.js"></script>
+
+    <!-- Basic Date Range Picker -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#date-range-picker').daterangepicker(null, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+        });
+    </script>
+    <!-- Basic Single Date Picker -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.date-picker').daterangepicker({ singleDatePicker: true }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+        });
+    </script>
+
+    <!-- Date Range and Time Picker -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#date-range-and-time-picker').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                format: 'MM/DD/YYYY h:mm A'
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+        });
+    </script>
+}

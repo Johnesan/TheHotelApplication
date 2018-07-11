@@ -32,6 +32,12 @@ namespace TheHotelApp.Services
 
         Task<IEnumerable<RoomType>> GetAllRoomTypesAsync();
 
+        IEnumerable<Room> GetAllRooms();
+
+        IEnumerable<Booking> GetAllBookings();
+
+        IEnumerable<Room> GetAllRoomsWithFeature(string feature);
+
         List<SelectedRoomFeatureViewModel> PopulateSelectedFeaturesForRoom(Room room);
 
         void UpdateRoomFeaturesList(Room room, string[] SelectedFeatureIDs);

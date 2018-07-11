@@ -1,38 +1,146 @@
 ﻿@model TheHotelApp.Models.Feature
 
-@{
-    ViewData["Title"] = "Create";
-}
 
-<h2>Create</h2>
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Create Feature</h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Index">Features</a></li>
+        <li class="active">Create</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <a asp-action="index" class="btn btn-option3 btn-lg">Back to List</a>
+    </div>
 
-<h4>Feature</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Icon" class="control-label"></label>
-                <input asp-for="Icon" class="form-control" />
-                <span asp-validation-for="Icon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+</div>
+<!-- End Page Header -->
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-title">
+                            Fill in Feature Details
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label asp-for="Name" class="col-sm-2 control-label form-label"></label>
+                                <input asp-for="Name" class="col-sm-9" />
+                                <span asp-validation-for="Name" class="text-danger col-sm-9 col-md-offset-2"></span>
+                            </div>
+                            <div class="form-group" style="padding-top:30px;">
+                                <label asp-for="Icon" class="col-sm-2 control-label form-label">Icon</label>
+                                <div id="icon">
+                                    @*<input asp-for="Icon" type="hidden" />
+                                    <img class="img-responsive" width="60" src="@Model.Icon" asp-append-version="true" />
+                                    <span asp-validation-for="Icon" class="text-danger col-sm-9 col-md-offset-2"></span>*@
+
+                                </div>
+                                <a href="" data-toggle="modal" data-target="#AddImagesModal" class="col-sm-offset-2" style="text-decoration:underline;">Select Icon</a>
+                                <span asp-validation-for="Icon" class="text-danger col-sm-9 col-md-offset-2"></span>
+                            </div>
+
+
+
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="btn-group" role="group">
+                                    <input id="bottom-submit-button" type="submit" value="Create" class="btn btn-success" />                                  
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="modal fade" id="AddImagesModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Room Images</h4>
+            </div>
+            <div id="add-images-modal" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <form>
+                    <p id="AddImages" class="btn btn-success">Add Images</p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Images/GetAllImagesJson",
+                type: "GET",
+                cache: true
+            }).success(function (result) {
+                $('#add-images-modal').prepend(result);
+            });
+
+
+
+            $('#AddImagesModal').on('show.bs.modal', function (e) {
+
+
+            }); //AddImagesModal -- Show Modal
+
+            $('.modal-body').on('click', '.imageItem', function () {
+                var checkbox = $(this).children('input');
+                if (checkbox.attr('checked') == undefined && checkbox.attr('checked') == null) {
+                    $(this).attr("style", "background-color: blue");
+                    $(this).children('input').attr('checked', 'checked');
+                }
+
+            }); //imageItem Clicked
+
+
+            $('.modal-body').on("custom", ":checked", function () {
+
+                var checkedImageDiv = $(this).parent();
+                var newIcon = '<img class="img-responsive" width="60" src="' + checkedImageDiv.children('img').attr('src') + '" />'
+                    + '<input type="hidden" name="Icon" value="' + checkedImageDiv.children('img').attr('src') + '"/>'
+                    + ' <span asp-validation-for="Icon" class="text-danger col-sm-9 col-md-offset-2"></span>';
+
+                $('#icon').html(newIcon);
+            }); //$("modal body(:checked) custom handler")
+
+            $('#AddImages').click(function () {
+                $(':checked').trigger("custom");
+                $('#AddImagesModal .close').click();
+            }); //AddImages Clicked
+
+
+            $('#top-submit-button').click(function () {
+                $('#bottom-submit-button').click();
+            }); //AddImages Clicked
+
+            $('#images').on("click", ".remove", function () {
+                $(this).parent().remove();
+            });
+
+
+        }); //jquery
+    </script>
 }

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using TheHotelApp.Data;
 using TheHotelApp.Services;
 using TheHotelApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheHotelApp.Controllers
 {
+    [Authorize]
     public class FeaturesController : Controller
     {
         private readonly IGenericHotelService<Feature> _hotelService;
@@ -35,6 +37,7 @@ namespace TheHotelApp.Controllers
             }
 
             var feature = await _hotelService.GetItemByIdAsync(id);
+            
 
             if (feature == null)
             {
@@ -76,6 +79,9 @@ namespace TheHotelApp.Controllers
             }
 
             var feature = await _hotelService.GetItemByIdAsync(id);
+
+            var rooms = _hotelService.GetAllRoomsWithFeature(id);
+            ViewData["RoomsWithFeature"] = rooms;
             if (feature == null)
             {
                 return NotFound();

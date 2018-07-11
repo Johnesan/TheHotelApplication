@@ -6,7 +6,7 @@
         <div class="col-md-3 panel">
             <div style="background-color:lightgrey; margin:2px;" class="imageItem" id="@item.ID">
                 <div>
-                    <input type="checkbox" name="selectedImages" value="@item.ID" style="float:left;" />
+                    <input type="checkbox" name="selectedImages" value="@item.ID" data-url="@item.ImageUrl" style="float:left;" />
                     <img class="img-responsive" src="@item.ImageUrl" asp-append-version="true" alt="@item.Name" width="200" />
                     <div class="panel-group" style="padding:5px;">
                         <p>@item.Name</p>

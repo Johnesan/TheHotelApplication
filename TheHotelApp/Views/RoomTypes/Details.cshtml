@@ -1,42 +1,179 @@
-﻿@model HotelManagementSystem.Models.RoomType
+﻿@model TheHotelApp.Models.RoomType
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Room Category</h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Index">Room Categories</a></li>
+        <li class="active">Details</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <a asp-action="edit" asp-route-id="@Model.ID" class="btn btn-option3 btn-lg">Edit Category</a>
+    </div>
+</div>
+<!-- End Page Header -->
 
-<div>
-    <h4>RoomType</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BasePrice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BasePrice)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <div class="row">
+        <div class=" col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-title">
+                Category Details
+               
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="col-sm-4">
+                            <b>Name: </b>
+                        </p>
+                        <p class="col-sm-8">
+                            @Model.Name
+                        </p>
+                    </div>
+
+                  
+                    <div class="col-sm-12">
+                        <p class="col-sm-4">
+                            <b>Base Price ($): </b>
+                        </p>
+                        <p class="col-sm-8">
+                            @Model.BasePrice
+                        </p>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <p class="col-sm-4">
+                            <b>Description: </b>
+                        </p>
+                        <p class="col-sm-8">
+                            @Model.Description
+                        </p>
+                    </div>
+
+                
+                </div>
+            </div>
+        </div>
+            </div>
+
+        <!-- Start Panel -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    Rooms under this Category
+                </div>
+                <div class="panel-body table-responsive">
+                    <table id="example0" class="table-bordered display">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Description</th>
+                                <th>Maximum Guests</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+
+
+                        <tbody>
+                            @if (ViewBag.CategoryRooms != null)
+                        {
+                            @foreach (var item in ViewBag.CategoryRooms as IEnumerable<Room>)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Number
+                                </td>
+                                <td>
+                                    @item.Price
+                                </td>
+                                <td>
+                                    @Html.Raw(item.Available ? "Yes" : "No")
+                                </td>
+                                <td>
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.MaximumGuests
+                                </td>
+
+                                <td>
+
+                                    <a asp-action="Details" asp-controller="Rooms" asp-route-id="@item.ID">View</a>
+                                </td>
+                            </tr>
+                    }
+                    }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Panel -->
+     
+    </div>
+    </div>
+
+    @section Scripts{
+        <!-- ================================================
+        Data Tables
+        ================================================ -->
+        <script src="~/js/datatables/datatables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#example0').DataTable();
+            });</script>
+
+        <script>
+            $(document).ready(function () {
+                var table = $('#example').DataTable({
+                    "columnDefs": [
+                        { "visible": false, "targets": 2 }
+                    ],
+                    "order": [[2, 'asc']],
+                    "displayLength": 25,
+                    "drawCallback": function (settings) {
+                        var api = this.api();
+                        var rows = api.rows({ page: 'current' }).nodes();
+                        var last = null;
+
+                        api.column(2, { page: 'current' }).data().each(function (group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before(
+                                    '<tr class="group"><td colspan="5">' + group + '</td></tr>'
+                                );
+
+                                last = group;
+                            }
+                        });
+                    }
+                });
+
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function () {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    }
+                    else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+
+        </script>
+
+    }
+
+  

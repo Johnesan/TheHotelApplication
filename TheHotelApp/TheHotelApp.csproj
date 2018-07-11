@@ -5,8 +5,34 @@
     <UserSecretsId>aspnet-TheHotelApp-7261A03C-D469-4037-A32E-AF5369E35488</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180513165615_InitialTables.cs" />
+    <Compile Remove="Data\Migrations\20180513165615_InitialTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180516233921_BookingTableUpdated.cs" />
+    <Compile Remove="Data\Migrations\20180516233921_BookingTableUpdated.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524134511_RoomFeatures.cs" />
+    <Compile Remove="Data\Migrations\20180524134511_RoomFeatures.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524135017_RoomFeaturesUpdate.cs" />
+    <Compile Remove="Data\Migrations\20180524135017_RoomFeaturesUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524135203_RoomFeaturesUpdated.cs" />
+    <Compile Remove="Data\Migrations\20180524135203_RoomFeaturesUpdated.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524135404_NewRoomFeature.cs" />
+    <Compile Remove="Data\Migrations\20180524135404_NewRoomFeature.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524135858_NewRoomFeatured.cs" />
+    <Compile Remove="Data\Migrations\20180524135858_NewRoomFeatured.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524182915_GuidsToStrings.cs" />
+    <Compile Remove="Data\Migrations\20180524182915_GuidsToStrings.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524183843_GuidToString.cs" />
+    <Compile Remove="Data\Migrations\20180524183843_GuidToString.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524190738_First.cs" />
+    <Compile Remove="Data\Migrations\20180524190738_First.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180524191033_First.cs" />
+    <Compile Remove="Data\Migrations\20180524191033_First.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="ByteSize" Version="1.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
@@ -16,6 +42,52 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\plugin\.DS_Store" />
+    <None Include="wwwroot\css\plugin\bootstrap-toggle\.DS_Store" />
+    <None Include="wwwroot\fonts\.DS_Store" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\img\.DS_Store" />
+    <None Include="wwwroot\img\alerticons\.DS_Store" />
+    <None Include="wwwroot\img\datatables\.DS_Store" />
+    <None Include="wwwroot\img\modalicons\.DS_Store" />
+    <None Include="wwwroot\js\bootstrap-select\bootstrap-select.js" />
+    <None Include="wwwroot\js\bootstrap-toggle\bootstrap-toggle.min.js" />
+    <None Include="wwwroot\js\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <None Include="wwwroot\js\bootstrap-wysihtml5\wysihtml5-0.3.0.min.js" />
+    <None Include="wwwroot\js\bootstrap\bootstrap.min.js" />
+    <None Include="wwwroot\js\chartist\.DS_Store" />
+    <None Include="wwwroot\js\chartist\chartist-plugin.js" />
+    <None Include="wwwroot\js\chartist\chartist.js" />
+    <None Include="wwwroot\js\datatables\datatables.min.js" />
+    <None Include="wwwroot\js\date-range-picker\daterangepicker.js" />
+    <None Include="wwwroot\js\easypiechart\easypiechart-plugin.js" />
+    <None Include="wwwroot\js\easypiechart\easypiechart.js" />
+    <None Include="wwwroot\js\flot-chart\flot-chart-pie.js" />
+    <None Include="wwwroot\js\flot-chart\flot-chart-plugin.js" />
+    <None Include="wwwroot\js\flot-chart\flot-chart-stack.js" />
+    <None Include="wwwroot\js\flot-chart\flot-chart-time.js" />
+    <None Include="wwwroot\js\flot-chart\flot-chart.js" />
+    <None Include="wwwroot\js\full-calendar\fullcalendar.js" />
+    <None Include="wwwroot\js\gmaps\gmaps-plugin.js" />
+    <None Include="wwwroot\js\gmaps\gmaps.js" />
+    <None Include="wwwroot\js\jquery-ui\jquery-ui.min.js" />
+    <None Include="wwwroot\js\kode-alert\main.js" />
+    <None Include="wwwroot\js\moment\moment.min.js" />
+    <None Include="wwwroot\js\rickshaw\d3.v3.js" />
+    <None Include="wwwroot\js\rickshaw\rickshaw-plugin.js" />
+    <None Include="wwwroot\js\rickshaw\rickshaw.js" />
+    <None Include="wwwroot\js\sparkline\sparkline-plugin.js" />
+    <None Include="wwwroot\js\sparkline\sparkline.js" />
+    <None Include="wwwroot\js\summernote\summernote.min.js" />
+    <None Include="wwwroot\js\sweet-alert\sweet-alert.min.js" />
   </ItemGroup>
 
 </Project>

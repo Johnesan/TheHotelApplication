@@ -1,0 +1,225 @@
+﻿@model TheHotelApp.Models.Booking
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Booking Details</h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Index">Booking</a></li>
+        <li class="active">Details</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <a asp-action="edit" asp-route-id="@Model.ID" class="btn btn-option3 btn-lg">Edit Booking</a>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- START CONTAINER -->
+<div class="container-padding">
+    <div class="row">
+        <div class=" col-md-12 col-lg-6">
+            <div class="row">
+                <div class="panel panel-default col-md-12">
+                    <div class="panel-title">
+                        Booking Details
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Date Created: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.DateCreated
+                                </p>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Check In: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.CheckIn
+                                </p>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Check Out: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.CheckOut
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Guests Expected: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Guests
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Customer Request: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.OtherRequests
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Total Amount: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.TotalFee
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Paid: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Paid
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default col-md-12">
+                    <div class="panel-title">
+                        Room Details
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Room Number: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Room.Number
+                                </p>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Room Category: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Room.RoomType.Name
+                                </p>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Price: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Room.Price
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Description: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Room.Description
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Customer Request: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.OtherRequests
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Maximum Guests: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Room.MaximumGuests
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-4">
+                                    <b>Paid: </b>
+                                </p>
+                                <p class="col-sm-8">
+                                    @Model.Paid
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    Customer Details
+
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="col-sm-4">
+                                <b> Name: </b>
+                            </p>
+                            <p class="col-sm-8">
+                                @Model.CustomerName
+                            </p>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <p class="col-sm-4">
+                                <b>Email: </b>
+                            </p>
+                            <p class="col-sm-8">
+                                @Model.CustomerEmail
+                            </p>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <p class="col-sm-4">
+                                <b>Phone Number: </b>
+                            </p>
+                            <p class="col-sm-8">
+                                @Model.CustomerPhone
+                            </p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="col-sm-4">
+                                <b>Address: </b>
+                            </p>
+                            <p class="col-sm-8">
+                                @Model.CustomerAddress
+                            </p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="col-sm-4">
+                                <b>City: </b>
+                            </p>
+                            <p class="col-sm-8">
+                                @Model.CustomerCity
+                            </p>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -69,4 +69,182 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+</html>*@
+
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Hotel Management System is a software system designed to manage your Hotel.">
+    <title>Le Meridien Ibom Hotel</title>
+    <!-- ========== Css Files ========== -->
+    <link href="~/css/root.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <div class="loading"><img src="~/img/loading.gif" alt="loading-img"></div>
+    <!-- End Page Loading -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START TOP -->
+    <div id="top" class="clearfix">
+        <!-- Start App Logo -->
+        <div class="applogo">
+            <a href="index.html" class="logo">Meridian</a>
+        </div>
+        <!-- End App Logo -->
+        <!-- Start Sidebar Show Hide Button -->
+        <a href="#" class="sidebar-open-button"><i class="fa fa-bars"></i></a>
+        <a href="#" class="sidebar-open-button-mobile"><i class="fa fa-bars"></i></a>
+        <!-- End Sidebar Show Hide Button -->
+        <!-- Start Searchbox -->
+        <form class="searchform">
+            <input type="text" class="searchbox" id="searchbox" placeholder="Search">
+            <span class="searchbutton"><i class="fa fa-search"></i></span>
+        </form>
+        <!-- End Searchbox -->
+       
+        <!-- Start Sidepanel Show-Hide Button -->
+        <a href="#sidepanel" class="sidepanel-open-button"><i class="fa fa-outdent"></i></a>
+        <!-- End Sidepanel Show-Hide Button -->
+        <!-- Start Top Right -->
+        <ul class="top-right">
+            <li class="dropdown link">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Create New <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-list">
+                    <li><a asp-action="Create" asp-controller="Rooms"><i class="fa falist fa-bed"></i>Room</a></li>
+                    <li><a asp-action="Create" asp-controller="RoomTypes"><i class="fa falist fa-folder-open"></i>Room Category</a></li>
+                    <li><a asp-action="Create" asp-controller="Features"><i class="fa falist fa-check-square-o"></i>Feature</a></li>
+                    <li><a asp-action="Create" asp-controller="Bookings"><i class="fa falist fa-calendar"></i>Booking</a></li>
+                </ul>
+            </li>
+          
+            <li class="dropdown link">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><img src="~/img/profileimg.png" alt="img"><b>@UserManager.GetUserName(User)</b><span class="caret"></span></a>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+                    <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+                        <li role="presentation" class="dropdown-header">Profile</li>
+                        <li><a href="#"><i class="fa falist fa-inbox"></i>Inbox<span class="badge label-danger">4</span></a></li>
+                        <li><a href="#"><i class="fa falist fa-file-o"></i>Files</a></li>
+                        <li><a href="#"><i class="fa falist fa-wrench"></i>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+                        <li><button type="submit"><i class="fa falist fa-power-off"></i> Logout</button></li>
+                    </ul>
+                </form>
+            </li>
+        </ul>
+        <!-- End Top Right -->
+    </div>
+    <!-- END TOP -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START SIDEBAR -->
+    <div class="sidebar clearfix sidebar-colorful">
+        <ul class="sidebar-panel nav">
+            <li>
+                <a asp-action="index" asp-controller="rooms"><span class="icon color7"><i class="fa fa-bed"></i></span>Rooms</a>
+            </li>
+            <li>
+                <a asp-action="index" asp-controller="roomtypes"><span class="icon color2"><i class="fa fa-folder-open"></i></span>Room Categories</a>
+            </li>
+            <li>
+                <a asp-action="index" asp-controller="bookings"><span class="icon color3"><i class="fa fa-calendar"></i></span>Bookings</a>
+
+            </li>
+            <li>
+                <a asp-action="index" asp-controller="features"><span class="icon color7"><i class="fa fa-check-square-o"></i></span>Features</a>
+            </li>
+            <li><a href="#"><span class="icon color11"><i class="fa fa-diamond"></i></span>Reviews</a></li>
+            <li><a asp-action="index" asp-controller="images"><span class="icon color1"><i class="fa fa-image"></i></span>Media</a></li>
+            <li>
+                <a asp-action="index" asp-controller="manage"><span class="icon color10"><i class="fa fa-user"></i></span>Account</a>
+
+            </li>
+        </ul>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START CONTENT -->
+    <div class="content">
+        @RenderBody()
+        <!-- END CONTAINER -->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- Start Footer -->
+        <div class="row footer">
+            <div class="col-md-6 text-left">
+                Copyright © 2018 <a href="https://github.com/Johnesan/TheHotelApplication" target="_blank">The Hotel Application.</a> All rights reserved.
+            </div>
+            <div class="col-md-6 text-right">
+                Design and Developed by <a href="https://github.com/Johnesan" target="_blank">John Esan</a>
+            </div>
+        </div>
+        <!-- End Footer -->
+
+    </div>
+    <!-- End Content -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START SIDEPANEL -->
+    <!-- END SIDEPANEL -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- ================================================
+    jQuery Library
+    ================================================ -->
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <!-- ================================================
+    Bootstrap Core JavaScript File
+    ================================================ -->
+    <script src="~/js/bootstrap/bootstrap.min.js"></script>
+    <!-- ================================================
+    Plugin.js - Some Specific JS codes for Plugin Settings
+    ================================================ -->
+    <script type="text/javascript" src="~/js/plugins.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+@*<!-- Start Page Header -->
+<div class="page-header">
+    <h1 class="title">Blank Page</h1>
+    <ol class="breadcrumb">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="#">Extra Pages</a></li>
+        <li class="active">Blank Page</li>
+    </ol>
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+        <div class="btn-group" role="group" aria-label="...">
+            <a href="index.html" class="btn btn-light">Dashboard</a>
+            <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+            <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+            <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+        </div>
+    </div>
+    <!-- End Page Header Right Div -->
+</div>
+<!-- End Page Header -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START CONTAINER -->
+<div class="container-default">
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>*@
